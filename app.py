@@ -1,10 +1,14 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route('/')
 def home():
-    return jsonify({"message": "Flask API is running!"})
+    return send_from_directory('static', 'index.html')
 
-if __name__ == "__main__":
+@app.route('/api/hello')
+def hello():
+    return jsonify({'message': 'Hellooo, World!'})
+
+if __name__ == '__main__':
     app.run(debug=True)
