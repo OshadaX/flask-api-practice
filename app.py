@@ -1,14 +1,17 @@
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, send_from_directory
+from routes.users import users_bp
 
 app = Flask(__name__)
 
-@app.route('/')
+app.register_blueprint(users_bp)
+
+@app.route("/")
 def home():
-    return send_from_directory('static', 'index.html')
+    return send_from_directory("templates", "index.html")  # changed static → templates
 
-@app.route('/api/hello')
-def hello():
-    return jsonify({'message': 'Hellooo, World!'})
+@app.route("/users")
+def users_page():
+    return send_from_directory("templates", "users.html")  # changed static → templates
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
